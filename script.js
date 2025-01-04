@@ -8,8 +8,10 @@ var itensDB = []
 //Eventos para trabalhar com as LIs na tela
 
 btnDeleteAll.onclick = () => {
-  itensDB = []
-  updateDB()
+  if (confirm('Voce tem certeza que deseja excluir todos os itens?')) {
+    itensDB = []
+    updateDB()
+  }
 }
 
 texto.addEventListener('keypress', e => {
@@ -19,7 +21,7 @@ texto.addEventListener('keypress', e => {
 })
 
 btnInsert.onclick = () => {
-  if (texto.value != '') {
+  if (texto.value.trim() != '') { 
     setItemDB()
   }
 }
