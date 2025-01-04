@@ -7,8 +7,13 @@ var itensDB = []
 
 //Eventos para trabalhar com as LIs na tela
 
-texto.addEventListtener('keypress') , e => {
-    if (e.key == 'Enter' && texto.vablue != '') {
+btnDeleteAll.onclick = () => {
+  itensDB = []
+  updateDB
+}
+
+texto.addEventListener('keypress') , e => {
+    if (e.key == 'Enter' && texto.value != '') {
         setItenDb()
     }
 }
@@ -41,23 +46,39 @@ function setItemDB() {
     })
   }
 
-function insertItemTela(text, status, i) {
-    const li = documentElement('li')
+  function insertItemTela(text, status, i) {
+      const li = documentElement('li')
 
-    li.innerHTML = `
-        <div class="divLi>
-            <input type="checkbox" ${status} data-i= ${i} onchange="done(this, ${i});" />
-            <spam data-si = ${i}> ${text}</spam>
-            <button button onclick="removeItem(${i})" data-i = ${i}><i class='bx bx-trash'></i></button>
-        </div>
-        `
-        ul.appendChild(li)
+      li.innerHTML = `
+          <div class="divLi>
+              <input type="checkbox" ${status} data-i= ${i} onchange="done(this, ${i});" />
+              <spam data-si = ${i}> ${text}</spam>
+              <button button onclick="removeItem(${i})" data-i = ${i}><i class='bx bx-trash'></i></button>
+          </div>
+          `
+          ul.appendChild(li)
 
-        if (status) {
-            document.querySelector(`[data-si="${i}"]`).classList.add('line-through')
-          } else {
-            document.querySelector(`[data-si="${i}"]`).classList.remove('line-through')
-          }
-        
-          texto.value = ''
-}
+          if (status) {
+              document.querySelector(`[data-si="${i}"]`).classList.add('line-through')
+            } else {
+              document.querySelector(`[data-si="${i}"]`).classList.remove('line-through')
+            }
+          
+            texto.value = ''
+  }
+
+  function done(chk, i) {
+    if(chk.checked) {
+      itensDB[i].status = 'checked'
+    } else {
+      itensDB[i].status = ''
+    }
+    updateDB()
+  }
+
+  function removeItem(i) {
+    intensDB.splice(i, 1)
+    updateDB()
+  }
+
+  loadItens()
