@@ -82,8 +82,11 @@ function done(chk, i) {
 }
 
 function removeItem(i) {
-  itensDB.splice(i, 1)
-  updateDB()
+  if (confirm('Tem certeza que deseja remover essa tarefa?')) {
+    itensDB.splice(i, 1)
+    updateDB()
+  }
+  
 }
 
 loadItens()
