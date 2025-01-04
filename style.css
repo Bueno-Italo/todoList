@@ -11,7 +11,7 @@ body {
     display: flex;
     justify-content: center;
     font-size: xx-large;
-    background-color: whitesmoke;
+    background-color: rgb(218, 234, 245);
 }
 
 p {

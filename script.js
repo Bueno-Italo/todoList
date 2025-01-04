@@ -9,76 +9,79 @@ var itensDB = []
 
 btnDeleteAll.onclick = () => {
   itensDB = []
-  updateDB
+  updateDB()
 }
 
-texto.addEventListener('keypress') , e => {
-    if (e.key == 'Enter' && texto.value != '') {
-        setItenDb()
-    }
-}
+texto.addEventListener('keypress', e => {
+  if (e.key == 'Enter' && texto.value != '') {
+    setItemDB()
+  }
+})
 
 btnInsert.onclick = () => {
-    if (texto.value != '') {
-        setItenDb()
-    }
+  if (texto.value != '') {
+    setItemDB()
+  }
 }
 
 function setItemDB() {
-    if (itensDB.length >= 20) {
-      alert('Limite máximo de 20 itens atingido!')
-      return
-    }
-  
-    itensDB.push({ 'item': texto.value, 'status': '' })
-    updateDB()
+  if (itensDB.length >= 20) {
+    alert('Limite máximo de 20 itens atingido!')
+    return
   }
 
-  function updateDB() {
-    localStorage.setItem('todoList', JSON.stringify(itensDB))
-  } 
+  itensDB.push({ 'item': texto.value, 'status': '' })
+  updateDB()
+}
 
-  function loadItens() {
-    ul.innerHTML = '';
-    intensDB = JSON.parse(localStorage.getItem('todoList')) ?? []
-    intensDB = forEach((item, i) => {
-        insertItemTela(item.item, item.status, i)
-    })
-  }
-
-  function insertItemTela(text, status, i) {
-      const li = documentElement('li')
-
-      li.innerHTML = `
-          <div class="divLi>
-              <input type="checkbox" ${status} data-i= ${i} onchange="done(this, ${i});" />
-              <spam data-si = ${i}> ${text}</spam>
-              <button button onclick="removeItem(${i})" data-i = ${i}><i class='bx bx-trash'></i></button>
-          </div>
-          `
-          ul.appendChild(li)
-
-          if (status) {
-              document.querySelector(`[data-si="${i}"]`).classList.add('line-through')
-            } else {
-              document.querySelector(`[data-si="${i}"]`).classList.remove('line-through')
-            }
-          
-            texto.value = ''
-  }
-
-  function done(chk, i) {
-    if(chk.checked) {
-      itensDB[i].status = 'checked'
-    } else {
-      itensDB[i].status = ''
-    }
-    updateDB()
-  }
-
-  function removeItem(i) {
-    intensDB.splice(i, 1)
-    updateDB()
-  }
-
+function updateDB() {
+  localStorage.setItem('todolist', JSON.stringify(itensDB))
   loadItens()
+} 
+
+function loadItens() {
+  ul.innerHTML = "";
+  itensDB = JSON.parse(localStorage.getItem('todolist')) ?? []
+  itensDB.forEach((item, i) => {
+    insertItemTela(item.item, item.status, i)
+  })
+}
+
+function insertItemTela(text, status, i) {
+  const li = document.createElement('li')
+  
+  li.innerHTML = `
+    <div class="divLi">
+      <input type="checkbox" ${status} data-i=${i} onchange="done(this, ${i});" />
+      <span data-si=${i}>${text}</span>
+      <button onclick="removeItem(${i})" data-i=${i}><i class='bx bx-trash'></i></button>
+    </div>
+    `
+  ul.appendChild(li)
+
+  if (status) {
+    document.querySelector(`[data-si="${i}"]`).classList.add('line-through')
+  } else {
+    document.querySelector(`[data-si="${i}"]`).classList.remove('line-through')
+  }
+
+  texto.value = ''
+}
+
+function done(chk, i) {
+
+  if (chk.checked) {
+    itensDB[i].status = 'checked' 
+  } else {
+    itensDB[i].status = '' 
+  }
+
+  updateDB()
+}
+
+function removeItem(i) {
+  itensDB.splice(i, 1)
+  updateDB()
+}
+
+loadItens()
